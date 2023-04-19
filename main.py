@@ -1,7 +1,16 @@
-import Leitor
-from Vulnerabilidade import Vuln
-teste = Vuln( 'bcopy', 'BufferOverflow', 'Falha em garantir que o caracter de terminação nao se encontra presente no destino. Uma solucao que melhora substancialmente o problema e utilizar o memcpy().')
+import sys
+from Leitor import leArquivo
+from Leitor import criaWordList
 
-print(teste.funcao)
-print(teste.tipo)
-print(teste.descricao)
+print('')
+print('')
+
+if len(sys.argv) < 2:
+    print("Por favor, informe o nome do arquivo como argumento.")
+    sys.exit()
+
+listadevulnerabilidades = criaWordList(wordlist = sys.argv[2] )
+
+leArquivo(arquivoAnalise = sys.argv[1], listadevulnerabilidades= listadevulnerabilidades)
+
+

@@ -1,20 +1,30 @@
 import sys
-def leArquivo():
-     #Verifica se um argumento foi passado na linha de comando
-    if len(sys.argv) < 2:
-        print("Por favor, informe o nome do arquivo como argumento.")
-        sys.exit()
-
-    # Obtém o nome do arquivo a partir do segundo argumento
-    nome_arquivo = sys.argv[1]
-    lista_strings = []
-
+from Vulnerabilidade import Vuln
+from Vulnerabilidade import Vuln
+def leArquivo(arquivoAnalise, listadevulnerabilidades):
     # Abre o arquivo e lê suas linhas
-    with open(nome_arquivo, 'r') as arquivo:
+
+    qtdFuncoes= len(listadevulnerabilidades)
+    descobertas = 0
+    with open(arquivoAnalise, 'r') as arquivo:
+        for elemento in listadevulnerabilidades:
+            for linha in arquivo:
+    
+                if elemento.funcao in linha:
+                    print('Foi encontrada a seguinte função vulneravel: ' +elemento.funcao + '\n Tipo:' + elemento.tipo + '\n Descrição' + elemento.descricao)
+                
+                    descobertas += 1
+        if descobertas == 0: 
+            print('Nao foi encontrada nenhuma vulnerabilidade')
+
+def criaWordList(wordlist):
+    listadevulnerabilidades = []
+    with open (wordlist , 'r') as arquivo:
         for linha in arquivo:
-            if any(string in linha for string in lista_strings):
-                print("teste concluido ")
-            else:
-                nada = 0
-      
-leArquivo()
+            split = linha.split(";")
+            vuln = Vuln(split[0], split[1] , split [2])
+            listadevulnerabilidades.append(vuln)
+            
+    return listadevulnerabilidades
+
+            
